@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - "stable"
+cache: yarn
+script:
+  - yarn test
+
+before_deploy:
+  - yarn global add netlify-cli
+  - yarn build
+
+deploy:
+  provider: script
+  script:
+    - echo Deploying to Dev
+    - netlify deploy -s $NETLIFY_SITE_ID -t $NETLIFY_ACCESS_TOKEN -p ./build
+  skip_cleanup: true
+  on:
+    branch: develop
