@@ -13,7 +13,7 @@ deploy:
   provider: script
   script:
     - echo Deploying to Dev
-    - netlify deploy -s $NETLIFY_SITE_ID -t $NETLIFY_ACCESS_TOKEN -p ./build
+    - netlify deploy -s $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN -p --dir ./build
   skip_cleanup: true
   on:
     branch: develop
