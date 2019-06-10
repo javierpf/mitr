@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import GoogleLogin from 'react-google-login';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { AuthenticationContext } from './Authenticator';
 
 const useStyles = makeStyles(theme => ({
   mainContainer: {
@@ -54,9 +55,22 @@ const useStyles = makeStyles(theme => ({
     }
   }
 }));
-const responseGoogle = data => console.log(data);
 
-const Login = () => {
+const Login = ({ history }) => {
+  const { setAuthState } = useContext(AuthenticationContext);
+  // We make sure to logout user if they go to the Login
+  // TODO delete data from localstorage if we ever store something there
+  useEffect(
+    () => setAuthState({ verified: true, loggedIn: false, userData: null }),
+    [setAuthState]
+  );
+  const loginCallback = (data, success) => {
+    console.log(data);
+    setAuthState({ verified: true, loggedIn: success, userData: {} });
+    if (success) {
+      history.push('home');
+    }
+  };
   const classes = useStyles();
   return (
     <div className={classes.mainContainer}>
@@ -72,8 +86,8 @@ const Login = () => {
           </Typography>
           <GoogleLogin
             clientId="668400214836-kdd6a0v1d2tvkjke8lrffer20mr77uf7.apps.googleusercontent.com"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
+            onSuccess={data => loginCallback(data, true)}
+            onFailure={data => loginCallback(data, false)}
             render={renderProps => (
               <Button
                 className={classes.googleButton}
@@ -102,6 +116,7 @@ const Login = () => {
               className={classes.links}
               href="https://i.imgflip.com/17urgs.jpg"
               target="_blank"
+              rel="noopener noreferrer"
             >
               Términos de uso
             </a>{' '}
@@ -110,6 +125,7 @@ const Login = () => {
               className={classes.links}
               href="https://meme.xyz/uploads/posts/t/l-27850-is-this-an-updated-privacy-policy.jpg"
               target="_blank"
+              rel="noopener noreferrer"
             >
               Política de Privacidad
             </a>

@@ -1,14 +1,23 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import 'antd/dist/antd.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Authenticator } from './components/Authenticator';
 import Login from './components/Login';
+import Home from './components/Home';
+import { CustomThemeProvider } from './theme';
 
 function App() {
   return (
-    <div>
-      <CssBaseline />
-      <Login />
-    </div>
+    <Router>
+      <CustomThemeProvider>
+        <CssBaseline />
+        {/* <Login /> */}
+        <Authenticator>
+          <Route path={'/login'} component={Login} />
+          <Route path={'/home'} component={Home} />
+        </Authenticator>
+      </CustomThemeProvider>
+    </Router>
   );
 }
 
