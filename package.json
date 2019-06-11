@@ -47,11 +47,13 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react": "^8.0.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-react": "^7.13.0",
     "eslint-plugin-react-hooks": "^1.6.0",
     "husky": "^2.4.0",
+    "jest-dom": "^3.5.0",
     "lint-staged": "^8.2.0",
     "prettier": "^1.18.2",
     "prettier-eslint": "^8.8.2"

@@ -6,6 +6,7 @@ import { Authenticator } from './components/Authenticator';
 import Login from './components/Login';
 import Home from './components/Home';
 import { CustomThemeProvider } from './theme';
+import './utils/i18n';
 
 function App() {
   return (

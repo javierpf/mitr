@@ -7,8 +7,13 @@ const Authenticator = ({ children, history }) => {
   const [authState, setAuthState] = useState({
     loggedIn: false,
     verified: true,
-    userData: null
+    userData: {}
   });
+  const loginUser = userData =>
+    setAuthState({ loggedIn: true, verified: true, userData });
+  // TODO also delete localStorage data if we ever store something there
+  const logoutUser = () =>
+    setAuthState({ loggedIn: false, verified: true, userData: {} });
   useEffect(() => {
     // If dependencies change, we make sure if user is still logged in.
     // If not, redirect to login
@@ -17,7 +22,9 @@ const Authenticator = ({ children, history }) => {
     }
   }, [authState.verified, authState.loggedIn, history]);
   return (
-    <AuthenticationContext.Provider value={{ authState, setAuthState }}>
+    <AuthenticationContext.Provider
+      value={{ authState, loginUser, logoutUser }}
+    >
       {!authState.verified && <h1>Loading</h1>}
       {authState.verified && children}
     </AuthenticationContext.Provider>

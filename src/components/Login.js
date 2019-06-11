@@ -142,16 +142,12 @@ const useStyles = makeStyles(theme => ({
 const Login = ({ history }) => {
   const { t } = useTranslation();
   const [creatingAccount, setCreatingAccount] = React.useState(false);
-  const { setAuthState } = useContext(AuthenticationContext);
+  const { loginUser, logoutUser } = useContext(AuthenticationContext);
   // We make sure to logout user if this component is rendered
-  // TODO delete data from localstorage if we ever store something there
-  useEffect(
-    () => setAuthState({ verified: true, loggedIn: false, userData: null }),
-    [setAuthState]
-  );
+  useEffect(() => logoutUser(), [logoutUser]);
   const loginCallback = (data, success) => {
     console.log(data);
-    setAuthState({ verified: true, loggedIn: success, userData: {} });
+    loginUser(data);
     if (success) {
       history.push('home');
     }
