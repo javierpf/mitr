@@ -1,25 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import 'typeface-poppins';
+import { Authenticator } from './components/Authenticator';
+import Login from './components/Login';
+import Home from './components/Home';
+import { CustomThemeProvider } from './theme';
+import './utils/i18n';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <CustomThemeProvider>
+        <CssBaseline />
+        <Authenticator>
+          <Route path={'/login'} component={Login} />
+          <Route path={'/home'} component={Home} />
+        </Authenticator>
+      </CustomThemeProvider>
+    </Router>
   );
 }
 

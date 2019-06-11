@@ -1,0 +1,13 @@
+{
+  "login": {
+    "title": "Ingresá a mitr",
+    "name": "Nombre y Apellido",
+    "email": "Email",
+    "password": "Password",
+    "createAccount": "Crear cuenta",
+    "login": "Login",
+    "loginWithProvider": "También puedes ingresar utilizando:",
+    "loginWithAccount": "Acceder con cuenta existente",
+    "orCreateAccount": "O, podés crear una cuenta"
+  }
+}
