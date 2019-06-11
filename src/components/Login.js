@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: theme.typography.fontWeightLight
   },
   card: {
-    // margin: theme.spacing(2),
+    margin: theme.spacing(),
     width: '90%',
     maxWidth: '960px',
     padding: '100px 130px 8px 95px',
@@ -65,14 +65,16 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center'
   },
   fontIcons: { fontSize: 28 },
-  googleButton: {
+  loginWithBaseStyle: {
     cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: '50%',
     width: '50px',
-    height: '50px',
+    height: '50px'
+  },
+  googleButton: {
     marginRight: theme.spacing(),
     color: theme.palette.getContrastText('#D44638'),
     backgroundColor: '#D44638',
@@ -81,13 +83,6 @@ const useStyles = makeStyles(theme => ({
     }
   },
   facebookButton: {
-    cursor: 'pointer',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: '50%',
-    width: '50px',
-    height: '50px',
     color: theme.palette.getContrastText('#3b5998'),
     backgroundColor: '#3b5998',
     '&:hover': {
@@ -109,7 +104,7 @@ const useStyles = makeStyles(theme => ({
 const Login = ({ history }) => {
   const [creatingAccount, setCreatingAccount] = React.useState(false);
   const { setAuthState } = useContext(AuthenticationContext);
-  // We make sure to logout user if they go to the Login
+  // We make sure to logout user if this component is rendered
   // TODO delete data from localstorage if we ever store something there
   useEffect(
     () => setAuthState({ verified: true, loggedIn: false, userData: null }),
@@ -145,14 +140,20 @@ const Login = ({ history }) => {
               <TextField
                 className={classes.input}
                 label="Nombre y apellido"
-              ></TextField>
+                variant="filled"
+              />
             )}
-            <TextField className={classes.input} label="Email"></TextField>
+            <TextField
+              className={classes.input}
+              label="Email"
+              variant="filled"
+            />
             <TextField
               className={classes.input}
               label="Password"
               type="password"
-            ></TextField>
+              variant="filled"
+            />
             <Fab
               className={classes.loginButton}
               color="primary"
@@ -177,7 +178,7 @@ const Login = ({ history }) => {
                     onFailure={data => loginCallback(data, false)}
                     render={renderProps => (
                       <div
-                        className={classes.googleButton}
+                        className={`${classes.loginWithBaseStyle} ${classes.googleButton}`}
                         onClick={renderProps.onClick}
                         disabled={renderProps.disabled}
                       >
@@ -188,7 +189,9 @@ const Login = ({ history }) => {
                       </div>
                     )}
                   />
-                  <div className={classes.facebookButton}>
+                  <div
+                    className={`${classes.loginWithBaseStyle} ${classes.facebookButton}`}
+                  >
                     <FontAwesomeIcon
                       className={classes.fontIcons}
                       icon={faFacebookF}
